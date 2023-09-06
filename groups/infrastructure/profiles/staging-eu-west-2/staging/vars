@@ -1,0 +1,5 @@
+environment = "staging"
+aws_profile = "staging-eu-west-2"
+enable_container_insights = true
+
+ec2_key_pair_name = "ch-aws-staging"
