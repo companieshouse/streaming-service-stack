@@ -1,5 +1,5 @@
 locals {
-  stack_name     = "streaming-service"
+  stack_name     = "streaming"
   stack_fullname = "${local.stack_name}-stack"
   name_prefix    = "${local.stack_name}-${var.environment}"
 
