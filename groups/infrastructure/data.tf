@@ -11,6 +11,10 @@ data "aws_subnets" "application" {
     name   = "tag:Name"
     values = [local.application_subnet_pattern]
   }
+  filter {
+    name   = "tag:NetworkType"
+    values = ["private"]
+  }
 }
 
 data "aws_vpc" "vpc" {

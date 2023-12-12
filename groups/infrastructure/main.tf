@@ -21,11 +21,12 @@ terraform {
 }
 
 module "ecs-cluster" {
-  source = "git@github.com:companieshouse/terraform-library-ecs-cluster.git?ref=1.1.4"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.228"
 
   stack_name                 = local.stack_name
   name_prefix                = local.name_prefix
   environment                = var.environment
+  aws_profile                = var.aws_profile
   vpc_id                     = data.aws_vpc.vpc.id
   subnet_ids                 = local.application_subnet_ids
   ec2_key_pair_name          = var.ec2_key_pair_name
@@ -35,12 +36,15 @@ module "ecs-cluster" {
   asg_min_instance_count     = var.asg_min_instance_count
   enable_container_insights  = var.enable_container_insights
   asg_desired_instance_count = var.asg_desired_instance_count
+  scaledown_schedule          = var.asg_scaledown_schedule
+  scaleup_schedule            = var.asg_scaleup_schedule
+  enable_asg_autoscaling      = var.enable_asg_autoscaling
+  notify_topic_slack_endpoint = local.notify_topic_slack_endpoint
 }
 
 module "secrets" {
-  source = "./module-secrets"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.228"
 
-  stack_name  = local.stack_name
   name_prefix = local.name_prefix
   environment = var.environment
   kms_key_id  = data.aws_kms_key.stack_configs.id
