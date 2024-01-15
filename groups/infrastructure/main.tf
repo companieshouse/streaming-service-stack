@@ -41,12 +41,3 @@ module "ecs-cluster" {
   enable_asg_autoscaling      = var.enable_asg_autoscaling
   notify_topic_slack_endpoint = local.notify_topic_slack_endpoint
 }
-
-module "secrets" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.231"
-
-  name_prefix = local.name_prefix
-  environment = var.environment
-  kms_key_id  = data.aws_kms_key.stack_configs.id
-  secrets     = local.parameter_store_secrets
-}
